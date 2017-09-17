@@ -5,7 +5,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <bean class="ru.javawebinar.topjava.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
+    <bean class="ru.javarest.web.json.JacksonObjectMapper" id="objectMapper" factory-method="getMapper"/>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
@@ -23,7 +23,7 @@
         </mvc:message-converters>
     </mvc:annotation-driven>
 
-    <context:component-scan base-package="ru.javawebinar.**.web"/>
+    <context:component-scan base-package="ru.javarest.**.web"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
@@ -46,7 +46,7 @@
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource"
           p:cacheSeconds="6"
           p:defaultEncoding="UTF-8">
-        <property name="basenames" value="file:///#{systemEnvironment['TOPJAVA_ROOT']}/config/app"/>
+        <property name="basenames" value="file:///#{systemEnvironment['BESTLUNCH']}/config/app"/>
         <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 </beans>

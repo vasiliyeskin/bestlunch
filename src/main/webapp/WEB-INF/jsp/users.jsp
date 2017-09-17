@@ -22,7 +22,7 @@
         </tr>
         </thead>
         <c:forEach items="${users}" var="user">
-            <jsp:useBean id="user" scope="page" type="ru.javawebinar.topjava.model.User"/>
+            <jsp:useBean id="user" scope="page" type="ru.javarest.model.User"/>
             <tr>
                 <td><c:out value="${user.name}"/></td>
                 <td><a href="mailto:${user.email}">${user.email}</a></td>

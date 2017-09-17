@@ -4,7 +4,7 @@
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <display-name>Topjava</display-name>
+    <display-name>Bestlunch</display-name>
 
     <context-param>
         <param-name>spring.profiles.default</param-name>
