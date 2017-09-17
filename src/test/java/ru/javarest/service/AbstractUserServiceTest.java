@@ -27,7 +27,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void testCreate() throws Exception {
-        User newUser = new User(null, "New", "new@gmail.com", "newPass", 1555, false, new Date(), Collections.singleton(Role.ROLE_USER));
+        User newUser = new User(null, "New", "New","new@gmail.com", "newPass", Role.ROLE_USER);
         User created = service.create(newUser);
         newUser.setId(created.getId());
         MATCHER.assertListEquals(Arrays.asList(ADMIN, newUser, USER), service.getAll());
@@ -35,7 +35,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test(expected = DataAccessException.class)
     public void testDuplicateMailCreate() throws Exception {
-        service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
+        service.create(new User(null, "Duplicate", "Duplicate","user@yandex.ru", "newPass", Role.ROLE_USER));
     }
 
     @Test
@@ -75,8 +75,8 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Test
     public void testUpdate() throws Exception {
         User updated = new User(USER);
-        updated.setName("UpdatedName");
-        updated.setCaloriesPerDay(330);
+        updated.setFirstname("UpdatedName");
+        updated.setLastname("UpdatedName");
         updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(USER_ID));

@@ -5,7 +5,7 @@
     <jmxConfigurator/>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>${BESTLUNCH}/log/topjava.log</file>
+        <file>${BESTLUNCH}/log/bestlunch.log</file>
 
         <encoder>
             <charset>UTF-8</charset>
@@ -20,7 +20,7 @@
         </encoder>
     </appender>
 
-    <logger name="ru.javawebinar.topjava" level="debug"/>
+    <logger name="ru.javarest" level="debug"/>
     <logger name="org.springframework.web.servlet" level="debug"/>
 
     <root level="info">

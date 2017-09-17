@@ -22,7 +22,7 @@ public class RootControllerTest extends AbstractControllerTest {
                 .andExpect(model().attribute("users", hasItem(
                         allOf(
                                 hasProperty("id", is(START_SEQ)),
-                                hasProperty("name", is(USER.getName()))
+                                hasProperty("name", is(USER.getFirstname()))
                         )
                 )));
     }

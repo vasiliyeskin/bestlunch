@@ -1,5 +1,6 @@
 package ru.javarest.model;
 
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -18,18 +19,23 @@ import java.util.*;
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY  u.lastname, u.firstname, u.email"),
 })
 @Entity
-//@NamedEntityGraph(name = User.GRAPH_WITH_MEALS, attributeNodes = {@NamedAttributeNode("meals")})
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")})
-public class User extends AbstractNamedEntity {
-
-//    public static final String GRAPH_WITH_MEALS = "User.withMeals";
+public class User extends AbstractBaseEntity {
 
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
     public static final String ALL_SORTED = "User.getAllSorted";
+
+    @NotBlank
+    @Column(name = "firstname", nullable = false)
+    protected String firstname;
+
+    @NotBlank
+    @Column(name = "lastname", nullable = false)
+    protected String lastname;
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -41,50 +47,61 @@ public class User extends AbstractNamedEntity {
     @Size(min = 5)
     private String password;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
-    private boolean enabled = true;
-
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
     private Date registered = new Date();
+
+    @Column(name = "active", nullable = false, columnDefinition = "bool default true")
+    private boolean active = true;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
-//    @Fetch(FetchMode.SUBSELECT)
     @BatchSize(size = 200)
     private Set<Role> roles;
-
-    @Column(name = "calories_per_day", columnDefinition = "int default 2000")
-    @Range(min = 10, max = 10000)
-    private int caloriesPerDay = MealsUtil.DEFAULT_CALORIES_PER_DAY;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @OrderBy("dateTime DESC")
-//    @JsonIgnore
-    protected List<Meal> meals;
 
     public User() {
     }
 
     public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getCaloriesPerDay(), u.isEnabled(), u.getRegistered(), u.getRoles());
+        this(u.getId(), u.getFirstname(), u.getLastname(), u.getEmail(), u.getPassword(), u.isActive(), u.getRegistered(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
-        this(id, name, email, password, MealsUtil.DEFAULT_CALORIES_PER_DAY, true, new Date(), EnumSet.of(role, roles));
+    public User(Integer id, String firstname, String laststname, String email, String password, Role role, Role... roles) {
+        this(id, firstname,  laststname, email, password, true, new Date(), EnumSet.of(role, roles));
     }
 
-    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Date registered, Collection<Role> roles) {
-        super(id, name);
+    public User(Integer id, String firstname, String laststname,String email, String password, boolean active, Date registered, Collection<Role> roles) {
+        super(id);
+        this.firstname = firstname;
+        this.lastname = laststname;
         this.email = email;
         this.password = password;
-        this.caloriesPerDay = caloriesPerDay;
-        this.enabled = enabled;
+        this.active = active;
         this.registered = registered;
         setRoles(roles);
+    }
+
+    public static int getStartSeq() {
+        return START_SEQ;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -93,6 +110,10 @@ public class User extends AbstractNamedEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public void setPassword(String password) {
@@ -107,32 +128,33 @@ public class User extends AbstractNamedEntity {
         this.registered = registered;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
+    public boolean isActive() {
+        return active;
     }
 
-    public int getCaloriesPerDay() {
-        return caloriesPerDay;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public void setCaloriesPerDay(int caloriesPerDay) {
-        this.caloriesPerDay = caloriesPerDay;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || !getClass().equals(Hibernate.getClass(o))) {
+            return false;
+        }
+        User that = (User) o;
+        return getId() != null && getId().equals(that.getId());
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    @Override
+    public int hashCode() {
+        return (getId() == null) ? 0 : getId();
     }
 
     public Set<Role> getRoles() {
         return roles;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public List<Meal> getMeals() {
-        return meals;
     }
 
     public void setRoles(Collection<Role> roles) {
@@ -143,11 +165,13 @@ public class User extends AbstractNamedEntity {
     public String toString() {
         return "User{" +
                 "id=" + getId() +
-                ", email=" + email +
-                ", name=" + name +
-                ", enabled=" + enabled +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", registered=" + registered +
+                ", active=" + active +
                 ", roles=" + roles +
-                ", caloriesPerDay=" + caloriesPerDay +
                 '}';
     }
 }
