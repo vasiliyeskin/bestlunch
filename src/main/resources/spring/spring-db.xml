@@ -34,7 +34,7 @@
               p:password="${database.password}"/>
     </beans>
 
-    <beans profile="postgres">
+<!--    <beans profile="postgres">
         <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
 
         <bean id="dataSource"
@@ -64,7 +64,7 @@
               class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
             <property name="dataSource" ref="dataSource" />
         </bean>
-    </beans>
+    </beans>-->
 
     <beans profile="jpa,datajpa">
         <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -110,8 +110,8 @@
         <context:component-scan base-package="ru.javarest.**.repository.jpa"/>
     </beans>
 
-    <beans profile="datajpa">
+<!--    <beans profile="datajpa">
         <context:component-scan base-package="ru.javarest.**.repository.datajpa"/>
         <jpa:repositories base-package="ru.javarest.**.repository.datajpa"/>
-    </beans>
+    </beans>-->
 </beans>
