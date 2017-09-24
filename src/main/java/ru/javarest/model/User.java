@@ -4,9 +4,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.util.CollectionUtils;
-import ru.javarest.util.MealsUtil;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
