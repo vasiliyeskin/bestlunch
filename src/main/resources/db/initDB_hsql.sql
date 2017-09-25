@@ -61,6 +61,7 @@ CREATE TABLE dishesofday
   dish_id          INTEGER                 NOT NULL,
   FOREIGN KEY      (dish_id) REFERENCES dishes (id)
 );
+CREATE UNIQUE INDEX dishesofday_unique_datelunch_dish_id_idx ON dishes (datelunch, dish_id);
 
 CREATE TABLE votes
 (

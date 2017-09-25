@@ -12,7 +12,6 @@ import java.util.Date;
 
 
 @SuppressWarnings("JpaQlInspection")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
         @NamedQuery(name = Dish.ALL_RESTAUR_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant.id=:restaurant_id ORDER BY d.name DESC"),
         @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dish d ORDER BY d.name DESC"),
@@ -36,7 +35,7 @@ public class Dish extends AbstractBaseEntity {
     @NotNull
     private Date registered = new Date();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
@@ -120,7 +119,7 @@ public class Dish extends AbstractBaseEntity {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", registered=" + registered +
-                ", restaurant=" + restaurant +
+                ", restaurant=" + restaurant.getId() +
                 '}';
     }
 }
