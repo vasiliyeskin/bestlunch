@@ -7,7 +7,6 @@ import ru.javarest.UserTestData;
 import ru.javarest.model.User;
 import ru.javarest.repository.UserRepository;
 import ru.javarest.util.exception.NotFoundException;
-import ru.javarest.web.user.AdminRestController;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -44,14 +43,14 @@ public class InMemoryAdminRestControllerTest {
 
     @Test
     public void testDelete() throws Exception {
-        controller.delete(UserTestData.USER_ID);
-        Collection<User> users = controller.getAll();
+        controller.deleteUser(UserTestData.USER_ID);
+        Collection<User> users = controller.getAllUsers();
         Assert.assertEquals(users.size(), 1);
         Assert.assertEquals(users.iterator().next(), ADMIN);
     }
 
     @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
-        controller.delete(10);
+        controller.deleteUser(10);
     }
 }

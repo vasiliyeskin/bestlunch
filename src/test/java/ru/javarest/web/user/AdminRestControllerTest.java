@@ -8,6 +8,7 @@ import ru.javarest.UserTestData;
 import ru.javarest.model.Role;
 import ru.javarest.model.User;
 import ru.javarest.web.AbstractControllerTest;
+import ru.javarest.web.AdminRestController;
 import ru.javarest.web.json.JsonUtil;
 import ru.javarest.TestUtil;
 
@@ -21,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 public class AdminRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_URL + '/';
+    private static final String REST_URL = AdminRestController.REST_USERS + '/';
 
     @Test
     public void testGet() throws Exception {

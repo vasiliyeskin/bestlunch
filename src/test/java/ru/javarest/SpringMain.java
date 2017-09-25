@@ -5,7 +5,7 @@ import ru.javarest.model.Role;
 import ru.javarest.to.MealWithExceed;
 import ru.javarest.model.User;
 import ru.javarest.web.meal.MealRestController;
-import ru.javarest.web.user.AdminRestController;
+import ru.javarest.web.AdminRestController;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -23,7 +23,7 @@ public class SpringMain {
 
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
-            adminUserController.create(new User(null, "userName", "userName","email@mail.ru", "password", Role.ROLE_ADMIN));
+            adminUserController.createWithLocationUser(new User(null, "userName", "userName","email@mail.ru", "password", Role.ROLE_ADMIN));
             System.out.println();
 
             MealRestController mealController = appCtx.getBean(MealRestController.class);

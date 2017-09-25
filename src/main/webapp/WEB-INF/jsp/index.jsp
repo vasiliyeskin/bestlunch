@@ -14,7 +14,8 @@
         <button type="submit"><spring:message code="common.select"/></button>
 </form>--%>
 <ul>
-    <li><a href="rest/admin/users">get users</a></li>
+    <li><a href="rest/admin/users">get users: rest/admin/users</a></li>
+    <li><a href="rest/admin/restaurants">get restaurants: rest/admin/restaurants</a></li>
     <li><a href="meals">get meals</a></li>
 </ul>
 </section>

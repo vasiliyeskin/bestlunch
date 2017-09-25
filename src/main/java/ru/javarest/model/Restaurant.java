@@ -1,14 +1,28 @@
 package ru.javarest.model;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cache;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@NamedQueries({
+        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r WHERE r.id=:id"),
+        @NamedQuery(name = Restaurant.BY_EMAIL, query = "SELECT r FROM Restaurant r WHERE r.email=?1"),
+        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r ORDER BY  r.title, r.email"),
+})
+
 @Entity
 @Table(name="restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "restaurants_unique_email_idx")})
 public class Restaurant extends AbstractBaseEntity {
+
+    public static final String DELETE = "Restaurant.delete";
+    public static final String BY_EMAIL = "Restaurant.getByEmail";
+    public static final String ALL_SORTED = "Restaurant.getAllSorted";
 
     @NotBlank
     @Column(name = "title", nullable = false)
