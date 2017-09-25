@@ -42,9 +42,6 @@
     <cache name="ru.javarest.model.Restaurant"
            maxElementsInMemory="25000"/>
 
-    <cache name="ru.javarest.model.User"
-           maxElementsInMemory="25000"/>
-
     <cache name="dishes"
            timeToLiveSeconds="60"
            maxElementsInMemory="1000"

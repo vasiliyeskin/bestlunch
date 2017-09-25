@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
+@SuppressWarnings("JpaQlInspection")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
         @NamedQuery(name = Dish.ALL_RESTAUR_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant.id=:restaurant_id ORDER BY d.name DESC"),
         @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dish d ORDER BY d.name DESC"),

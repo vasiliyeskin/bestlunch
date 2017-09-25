@@ -11,6 +11,7 @@ import ru.javarest.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static ru.javarest.util.ValidationUtil.checkNotFound;
 import static ru.javarest.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -20,12 +21,14 @@ public class DishService {
 
     public DishService(JpaDishRepository repository){this.dishRepository = repository;}
 
+    @CacheEvict(value="dishes", allEntries =  true)
     public Dish create(Dish dish)
     {
         Assert.notNull(dish, "dish must not be null");
         return dishRepository.save(dish);
     }
 
+    @CacheEvict(value = "dishes", allEntries =  true)
     public void delete(int id) throws NotFoundException
     {
         checkNotFoundWithId(dishRepository.delete(id), id);
@@ -35,15 +38,18 @@ public class DishService {
         return checkNotFoundWithId(dishRepository.get(id), id);
     }
 
+    @Cacheable("dishes")
     public List<Dish> getAll() {
         return dishRepository.getAll();
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     public void update(Dish dish) {
         Assert.notNull(dish, "dish must not be null");
         dishRepository.save(dish);
     }
 
+    @CacheEvict(value = "dishes", allEntries = true)
     public void evictCache() {
         // only for evict cache
     }
