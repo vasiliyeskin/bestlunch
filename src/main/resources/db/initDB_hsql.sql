@@ -59,9 +59,9 @@ CREATE TABLE dishesofday
 (
   datelunch        DATE  DEFAULT now()     NOT NULL,
   dish_id          INTEGER                 NOT NULL,
-  FOREIGN KEY      (dish_id) REFERENCES dishes (id)
+  FOREIGN KEY      (dish_id) REFERENCES dishes (id) ON DELETE CASCADE
 );
-CREATE UNIQUE INDEX dishesofday_unique_datelunch_dish_id_idx ON dishes (datelunch, dish_id);
+CREATE UNIQUE INDEX dishesofday_unique_datelunch_dish_id_idx ON dishesofday (datelunch, dish_id);
 
 CREATE TABLE votes
 (
