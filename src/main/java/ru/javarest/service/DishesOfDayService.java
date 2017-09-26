@@ -4,7 +4,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import ru.javarest.model.AbstractBaseEntity;
 import ru.javarest.model.DishesOfDay;
 import ru.javarest.repository.jpa.JpaDishesOfDayRepository;
 import ru.javarest.util.exception.NotFoundException;
@@ -60,7 +59,4 @@ public class DishesOfDayService{
     public void evictCache() {
         // only for evict cache
     }
-
-
-
 }

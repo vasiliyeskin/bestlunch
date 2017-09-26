@@ -71,7 +71,8 @@ public class DishesOfDay extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "DishesOfDay{" +
-                "datelunch=" + datelunch +
+                "id=" + getId() +
+                ", datelunch=" + datelunch +
                 ", dish=" + dish.getName() +
                 '}';
     }

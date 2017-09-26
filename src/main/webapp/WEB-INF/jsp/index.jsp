@@ -18,6 +18,8 @@
     <li><a href="rest/admin/restaurants">get restaurants: rest/admin/restaurants</a></li>
     <li><a href="rest/admin/dishes">get dishes: rest/admin/dishes</a></li>
     <li><a href="rest/admin/dishesofday">get dishes of day: rest/admin/dishesofday</a></li>
+    <li><a href="rest/vote">get vote of day: rest/vote</a></li>
+    <li><a href="rest/vote/today">get result of vote of day: rest/vote/today</a></li>
     <li><a href="meals">get meals</a></li>
 </ul>
 </section>

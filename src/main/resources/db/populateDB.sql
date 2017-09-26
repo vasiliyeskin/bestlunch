@@ -76,8 +76,8 @@ INSERT INTO DISHESOFDAY (datelunch, DISH_ID) VALUES
   (now(),(SELECT id FROM DISHES WHERE name = 'borsh' and RESTAURANT_ID=(SELECT id FROM RESTAURANTS WHERE email = 'boltzmann@mail.ru')));
 
 INSERT INTO votes(DATELUNCH, USER_ID, RESTAURANT_ID) VALUES
-  (now(),(SELECT id FROM USERS WHERE email = 'user@yandex.ru'),(SELECT id FROM RESTAURANTS WHERE email = 'maxwell@mail.ru')),
+  (now(),(SELECT id FROM USERS WHERE email = 'user@yandex.ru'), (SELECT id FROM RESTAURANTS WHERE email = 'maxwell@mail.ru')),
   (now(),(SELECT id FROM USERS WHERE email = 'admin@gmail.com'),(SELECT id FROM RESTAURANTS WHERE email = 'maxwell@mail.ru')),
-  (now(),(SELECT id FROM USERS WHERE email = 'user2@yandex.ru'),(SELECT id FROM RESTAURANTS WHERE email = 'feynman@mail.ru')),
+  (now(),(SELECT id FROM USERS WHERE email = 'user2@yandex.ru'),(SELECT id FROM RESTAURANTS WHERE email = 'maxwell@mail.ru')),
   (now(),(SELECT id FROM USERS WHERE email = 'user3@yandex.ru'),(SELECT id FROM RESTAURANTS WHERE email = 'feynman@mail.ru')),
   (now(),(SELECT id FROM USERS WHERE email = 'user4@yandex.ru'),(SELECT id FROM RESTAURANTS WHERE email = 'boltzmann@mail.ru'));
