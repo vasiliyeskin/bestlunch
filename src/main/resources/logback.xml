@@ -9,7 +9,7 @@
 
         <encoder>
             <charset>UTF-8</charset>
-            <pattern>%date %-5level %logger{50}.%M:%L - %msg%n</pattern>
+            <pattern>%datelunch %-5level %logger{50}.%M:%L - %msg%n</pattern>
         </encoder>
     </appender>
 

@@ -14,15 +14,15 @@ import java.util.Collection;
 import static ru.javarest.UserTestData.ADMIN;
 import static ru.javarest.UserTestData.USER;
 
-public class InMemoryAdminRestControllerTest {
+public class InMemoryAdminUsersRestControllerTest {
     private static ConfigurableApplicationContext appCtx;
-    private static AdminRestController controller;
+    private static AdminUsersRestController controller;
 
     @BeforeClass
     public static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/mock.xml");
         System.out.println("\n" + Arrays.toString(appCtx.getBeanDefinitionNames()) + "\n");
-        controller = appCtx.getBean(AdminRestController.class);
+        controller = appCtx.getBean(AdminUsersRestController.class);
     }
 
     @AfterClass

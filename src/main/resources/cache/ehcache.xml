@@ -55,4 +55,17 @@
     <cache name="ru.javarest.model.Dish"
            maxElementsInMemory="25000"/>
 
+    <cache name="dishesofday"
+           timeToLiveSeconds="60"
+           maxElementsInMemory="1000"
+           eternal="false"
+           overflowToDisk="false"
+           maxElementsOnDisk="10000000"
+           diskPersistent="false"
+           diskExpiryThreadIntervalSeconds="1"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <cache name="ru.javarest.model.DishesOfDay"
+           maxElementsInMemory="25000"/>
+
 </ehcache>

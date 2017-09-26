@@ -8,7 +8,7 @@ import ru.javarest.UserTestData;
 import ru.javarest.model.Role;
 import ru.javarest.model.User;
 import ru.javarest.web.AbstractControllerTest;
-import ru.javarest.web.AdminRestController;
+import ru.javarest.web.AdminUsersRestController;
 import ru.javarest.web.json.JsonUtil;
 import ru.javarest.TestUtil;
 
@@ -20,9 +20,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class AdminRestControllerTest extends AbstractControllerTest {
+public class AdminUsersRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_USERS + '/';
+    private static final String REST_URL = AdminUsersRestController.REST_USERS + '/';
 
     @Test
     public void testGet() throws Exception {

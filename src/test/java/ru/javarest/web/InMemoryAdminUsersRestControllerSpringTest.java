@@ -19,10 +19,10 @@ import static ru.javarest.UserTestData.USER;
 
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
 @RunWith(SpringRunner.class)
-public class InMemoryAdminRestControllerSpringTest {
+public class InMemoryAdminUsersRestControllerSpringTest {
 
     @Autowired
-    private AdminRestController controller;
+    private AdminUsersRestController controller;
 
     @Autowired
     private UserRepository repository;
