@@ -1,5 +1,6 @@
 package ru.javarest.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cache;
 
@@ -16,13 +17,34 @@ import java.util.*;
         @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r ORDER BY  r.title, r.email"),
 })
 
+@Access(AccessType.FIELD)
 @Entity
 @Table(name="restaurants", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "restaurants_unique_email_idx")})
-public class Restaurant extends AbstractBaseEntity {
+public class Restaurant implements BaseEntity {
 
     public static final String DELETE = "Restaurant.delete";
     public static final String BY_EMAIL = "Restaurant.getByEmail";
     public static final String ALL_SORTED = "Restaurant.getAllSorted";
+
+    public static final int REST_SEQ = 200000;
+
+    @Id
+    @SequenceGenerator(name = "rest_seq", sequenceName = "rest_seq", allocationSize = 1, initialValue = REST_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rest_seq")
+    @Access(value = AccessType.PROPERTY)
+    private Integer id;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
+    }
 
     @NotBlank
     @Column(name = "title", nullable = false)
@@ -43,12 +65,13 @@ public class Restaurant extends AbstractBaseEntity {
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Date registered = new Date();
 
     public Restaurant(){}
 
     public Restaurant(Restaurant restaurant) {
-        super(restaurant.getId());
+        this.id = restaurant.id;
         this.title = restaurant.title;
         this.address = restaurant.address;
         this.email = restaurant.email;
@@ -57,12 +80,16 @@ public class Restaurant extends AbstractBaseEntity {
     }
 
     public Restaurant(Integer id, String title, String address, String email, String site, Date registered) {
-        super(id);
+        this.id = id;
         this.title = title;
         this.address = address;
         this.email = email;
         this.site = site;
         this.registered = registered;
+    }
+
+    public Restaurant(Integer id, String title, String address, String email, String site) {
+        this(id, title, address, email, site, new Date());
     }
 
     public String getTitle() {
@@ -128,7 +155,7 @@ public class Restaurant extends AbstractBaseEntity {
     @Override
     public String toString() {
         return "Restaurant{" +
-                "id=" + getId() + '\'' +
+                "id=" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", address='" + address + '\'' +
                 ", email='" + email + '\'' +

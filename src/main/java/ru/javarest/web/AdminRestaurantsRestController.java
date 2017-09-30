@@ -24,7 +24,6 @@ public class AdminRestaurantsRestController {
     @Autowired
     private RestaurantService restaurantService;
 
-
     @GetMapping(value = REST_RESTS, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Restaurant> getAllRestaurants()
     {
