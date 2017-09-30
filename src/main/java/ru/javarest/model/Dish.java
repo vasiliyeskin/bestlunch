@@ -2,7 +2,6 @@ package ru.javarest.model;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
@@ -11,18 +10,41 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
-@SuppressWarnings("JpaQlInspection")
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
-        @NamedQuery(name = Dish.ALL_RESTAUR_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant.id=:restaurant_id ORDER BY d.name DESC"),
+        @NamedQuery(name = Dish.ALL_RESTAUR_SORTED, query = "SELECT d FROM Dish d WHERE d.restaurant_id=:restaurant_id ORDER BY d.name DESC"),
         @NamedQuery(name = Dish.ALL_SORTED, query = "SELECT d FROM Dish d ORDER BY d.name DESC"),
         @NamedQuery(name = Dish.DELETE, query = "DELETE FROM Dish d WHERE d.id=:id")})
 
+
+@Access(AccessType.FIELD)
 @Entity
 @Table(name="dishes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "name"}, name = "dishes_unique_restaurant_name_idx")})
-public class Dish extends AbstractBaseEntity {
+public class Dish implements BaseEntity {
     public static final String ALL_RESTAUR_SORTED = "Dish.getAllRestaurant";
     public static final String ALL_SORTED = "Dish.getAll";
     public static final String DELETE = "Dish.delete";
+
+
+    public static final int DISH_SEQ = 300000;
+
+    @Id
+    @SequenceGenerator(name = "dish_seq", sequenceName = "dish_seq", allocationSize = 1, initialValue = DISH_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dish_seq")
+    @Access(value = AccessType.PROPERTY)
+    private Integer id;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
+    }
 
     @NotBlank
     @Column(name = "name", nullable = false)
@@ -35,29 +57,34 @@ public class Dish extends AbstractBaseEntity {
     @NotNull
     private Date registered = new Date();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Restaurant restaurant;
+    private Restaurant restaurant;*/
+
+    @Column(name = "restaurant_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Integer restaurant_id;
 
     public Dish(){}
 
     public Dish(Dish dish)
     {
-        super(dish.getId());
+        this.id = dish.id;
         this.name = dish.name;
         this.price = dish.price;
         this.registered = dish.registered;
-        this.restaurant = dish.restaurant;
+        this.restaurant_id = dish.restaurant_id;
     }
 
-    public Dish(Integer id, String name, Integer price, Date registered, Restaurant restaurant) {
-        super(id);
+    public Dish(Integer id, String name, Integer price, Date registered, Integer restaurant_id) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.registered = registered;
-        this.restaurant = restaurant;
+        this.restaurant_id = restaurant_id;
     }
 
     public String getName() {
@@ -84,12 +111,20 @@ public class Dish extends AbstractBaseEntity {
         this.registered = registered;
     }
 
-    public Restaurant getRestaurant() {
+ /*   public Restaurant getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }*/
+
+    public Integer getRestaurant_id() {
+        return restaurant_id;
+    }
+
+    public void setRestaurant_id(Integer restaurant_id) {
+        this.restaurant_id = restaurant_id;
     }
 
     @Override
@@ -119,7 +154,7 @@ public class Dish extends AbstractBaseEntity {
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", registered=" + registered +
-                ", restaurant=" + restaurant.getId() +
+                ", restaurant_id=" + restaurant_id +
                 '}';
     }
 }
