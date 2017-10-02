@@ -66,7 +66,7 @@
         </bean>
     </beans>-->
 
-<!--<beans profile="heroku">
+<beans profile="heroku">
         <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>
 
         <bean class="java.net.URI" id="dbUrl">
@@ -74,10 +74,10 @@
         </bean>
         <bean id="dataSource"
               class="org.apache.tomcat.jdbc.pool.DataSource"
-              p:url="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"
-              p:username="#{ @dbUrl.getUserInfo().split(':')[0] }"
-              p:password="#{ @dbUrl.getUserInfo().split(':')[1] }"
-              p:driverClassName="org.postgresql.Driver"
+              p:url="jdbc:hsqldb:mem:bestlunch"
+              p:username="sa"
+              p:password=""
+              p:driverClassName="org.hsqldb.jdbcDriver"
               p:validationQuery="SELECT 1"
               p:maxActive="10"
               p:minIdle="2"
@@ -88,7 +88,7 @@
               p:removeAbandoned="true"
               p:testOnConnect="true"
               p:testWhileIdle="true"/>
-    </beans>-->
+    </beans>
 
 
     <beans profile="jpa,datajpa">
