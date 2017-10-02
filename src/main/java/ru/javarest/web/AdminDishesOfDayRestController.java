@@ -27,7 +27,6 @@ public class AdminDishesOfDayRestController {
     @Autowired
     private DishesOfDayService service;
 
-
     @GetMapping(value = REST_DISHESOFDAY, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<DishesOfDay> getAllOfTodate()
     {
@@ -42,7 +41,7 @@ public class AdminDishesOfDayRestController {
     }
 
     @PostMapping(value = REST_DISHESOFDAY, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<DishesOfDay> createWithLocationDishesOfDay(@RequestBody DishesOfDay dishesOfDay) {
+    public ResponseEntity<DishesOfDay> createDishesOfDay(@RequestBody DishesOfDay dishesOfDay) {
         log.info("create dish of day {}", dishesOfDay);
         ValidationUtil.checkNew(dishesOfDay);
         DishesOfDay created = service.create(dishesOfDay);
@@ -59,13 +58,4 @@ public class AdminDishesOfDayRestController {
         log.info("delete dish of day {}", id);
         service.delete(id);
     }
-
-    @PutMapping(value = REST_DISHESOFDAY + "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void updateDishesOfDay(@RequestBody DishesOfDay dishesOfDay, @PathVariable("id") int id) {
-        log.info("update dishes of date {} with id={}", dishesOfDay, id);
-        ValidationUtil.assureIdConsistent(dishesOfDay, id);
-        service.update(dishesOfDay);
-    }
-
-
 }

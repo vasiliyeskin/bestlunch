@@ -28,7 +28,7 @@ public class DishService {
         return dishRepository.save(dish);
     }
 
-    @CacheEvict(value = "dishes", allEntries =  true)
+    @CacheEvict(value = {"dishes", "dishesofday"}, allEntries =  true)
     public void delete(int id) throws NotFoundException
     {
         checkNotFoundWithId(dishRepository.delete(id), id);

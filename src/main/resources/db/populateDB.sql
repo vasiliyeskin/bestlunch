@@ -10,17 +10,23 @@ ALTER SEQUENCE rest_seq
 RESTART WITH 200000;
 ALTER SEQUENCE dish_seq
 RESTART WITH 300000;
+ALTER SEQUENCE dishofday_seq
+RESTART WITH 0;
+
+-- VALUES ('User', 'Smith', 'user@yandex.ru', 'password');
+-- PasswordUtil.encode("password");
+INSERT INTO users (firstname, lastname, email, password)
+VALUES ('User', 'Smith', 'user@yandex.ru', '$2a$10$i09JKq1iXzAYl2o6yLvfBuJYRXhypm9P06voTexk0X6N46qTNt606');
+
+-- VALUES ('Admin', 'Smith', 'admin@gmail.com', 'admin');
+-- PasswordUtil.encode("admin");
+INSERT INTO users (firstname, lastname, email, password)
+VALUES ('Admin', 'Smith', 'admin@gmail.com', '$2a$10$M7C82phiJOuaQSS/ygZVtebkxmsUWEN9ZdTVstJsQcEaRqf2bAz0C');
 
 INSERT INTO users (firstname, lastname, email, password)
-VALUES ('User', 'Smith', 'user@yandex.ru', 'password');
-
-INSERT INTO users (firstname, lastname, email, password)
-VALUES ('Admin', 'Smith', 'admin@gmail.com', 'admin');
-
-INSERT INTO users (firstname, lastname, email, password)
-VALUES ('User2', 'Smith', 'user2@yandex.ru', 'password'),
-  ('User3', 'Smith', 'user3@yandex.ru', 'password'),
-  ('User4', 'Smith', 'user4@yandex.ru', 'password');
+VALUES ('User2', 'Smith', 'user2@yandex.ru', '$2a$10$i09JKq1iXzAYl2o6yLvfBuJYRXhypm9P06voTexk0X6N46qTNt606'),
+  ('User3', 'Smith', 'user3@yandex.ru', '$2a$10$i09JKq1iXzAYl2o6yLvfBuJYRXhypm9P06voTexk0X6N46qTNt606'),
+  ('User4', 'Smith', 'user4@yandex.ru', '$2a$10$i09JKq1iXzAYl2o6yLvfBuJYRXhypm9P06voTexk0X6N46qTNt606');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', (SELECT id

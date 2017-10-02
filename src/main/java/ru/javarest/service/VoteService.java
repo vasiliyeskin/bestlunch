@@ -6,6 +6,7 @@ import ru.javarest.model.Vote;
 import ru.javarest.repository.jpa.JpaVoteRepository;
 import ru.javarest.util.exception.NotFoundException;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import static ru.javarest.util.ValidationUtil.checkNotFoundWithId;
@@ -22,6 +23,13 @@ public class VoteService {
 
     public Vote create(Vote vote) {
         Assert.notNull(vote, "vote must not be null");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 11);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        Assert.state(vote.getDatelunch().before(cal.getTime()), "time must be before the 11:00");
         return repository.save(vote);
     }
 

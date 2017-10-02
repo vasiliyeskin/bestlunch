@@ -1,21 +1,49 @@
 package ru.javarest;
 
-import ru.javarest.model.AbstractBaseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import ru.javarest.model.User;
+import ru.javarest.to.UserTo;
+import ru.javarest.util.UserUtil;
 
-import static ru.javarest.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
-public class AuthorizedUser {
-    private static int id = AbstractBaseEntity.START_SEQ;
+import static java.util.Objects.requireNonNull;
+
+public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
+    private static final long serialVersionUID = 1L;
+
+    private final UserTo userTo;
+
+    public AuthorizedUser(User user) {
+        super(user.getEmail(), user.getPassword(), user.isActive(), true, true, true, user.getRoles());
+        this.userTo = UserUtil.asTo(user);
+    }
+
+    public static AuthorizedUser safeGet() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null) {
+            return null;
+        }
+        Object principal = auth.getPrincipal();
+        return (principal instanceof AuthorizedUser) ? (AuthorizedUser) principal : null;
+    }
+
+    public static AuthorizedUser get() {
+        AuthorizedUser user = safeGet();
+        requireNonNull(user, "No authorized user found");
+        return user;
+    }
 
     public static int id() {
-        return id;
+        return get().userTo.getId();
     }
 
-    public static void setId(int id) {
-        AuthorizedUser.id = id;
+    public UserTo getUserTo() {
+        return userTo;
     }
 
-    public static int getCaloriesPerDay() {
-        return DEFAULT_CALORIES_PER_DAY;
+    @Override
+    public String toString() {
+        return userTo.toString();
     }
 }

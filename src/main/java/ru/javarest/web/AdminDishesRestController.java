@@ -38,7 +38,7 @@ public class AdminDishesRestController {
     }
 
     @PostMapping(value = REST_DISHES, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocationDish(@RequestBody Dish dish) {
+    public ResponseEntity<Dish> createDish(@RequestBody Dish dish) {
         log.info("create dish {}", dish);
         ValidationUtil.checkNew(dish);
         Dish created = dishService.create(dish);

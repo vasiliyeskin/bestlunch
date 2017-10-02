@@ -25,7 +25,7 @@ public class DishesOfDayService{
 
     @CacheEvict(value = "dishesofday", allEntries = true)
     public DishesOfDay create(DishesOfDay dishesOfDay) {
-        Assert.notNull(dishesOfDay, "restaurant must not be null");
+        Assert.notNull(dishesOfDay, "dish must not be null");
         return jpaDishesOfDayRepository.save(dishesOfDay);
     }
 

@@ -36,7 +36,7 @@ public abstract class AbstractMealController {
     public List<MealWithExceed> getAll() {
         int userId = AuthorizedUser.id();
         log.info("getAll for User {}", userId);
-        return MealsUtil.getWithExceeded(service.getAll(userId), AuthorizedUser.getCaloriesPerDay());
+        return MealsUtil.getWithExceeded(service.getAll(userId), 2000);
     }
 
     public Meal create(Meal meal) {
@@ -69,7 +69,7 @@ public abstract class AbstractMealController {
                         endDate != null ? endDate : DateTimeUtil.MAX_DATE, userId),
                 startTime != null ? startTime : LocalTime.MIN,
                 endTime != null ? endTime : LocalTime.MAX,
-                AuthorizedUser.getCaloriesPerDay()
+                2000
         );
     }
 }

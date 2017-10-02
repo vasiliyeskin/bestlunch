@@ -30,7 +30,7 @@ public class RestaurantService {
         return repository.save(restaurant);
     }
 
-    @CacheEvict(value = "restaurants", allEntries = true)
+    @CacheEvict(value = { "restaurants", "dishes", "dishesofday"}, allEntries = true)
     public void delete(int id) throws NotFoundException {
         checkNotFoundWithId(repository.delete(id), id);
     }

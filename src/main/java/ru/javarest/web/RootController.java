@@ -1,6 +1,7 @@
 package ru.javarest.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,17 +32,17 @@ public class RootController {
         return "users";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/users")
     public String setUser(HttpServletRequest request) {
         int userId = Integer.valueOf(request.getParameter("userId"));
-        AuthorizedUser.setId(userId);
         return "redirect:meals";
     }
 
     @GetMapping("/meals")
     public String meals(Model model) {
         model.addAttribute("meals",
-                MealsUtil.getWithExceeded(mealService.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay()));
+                MealsUtil.getWithExceeded(mealService.getAll(AuthorizedUser.id()), 2000));
         return "meals";
     }
 }

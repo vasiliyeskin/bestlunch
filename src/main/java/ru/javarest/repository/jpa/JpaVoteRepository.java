@@ -4,6 +4,7 @@ import org.hibernate.jpa.QueryHints;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.javarest.AuthorizedUser;
 import ru.javarest.model.Vote;
 
 import javax.persistence.EntityManager;
@@ -46,6 +47,7 @@ public class JpaVoteRepository {
     public boolean delete(int id) {
         return em.createNamedQuery(Vote.DELETE).
                 setParameter("id", id).
+                setParameter("user_id", AuthorizedUser.id()).
                 executeUpdate() != 0;
     }
 

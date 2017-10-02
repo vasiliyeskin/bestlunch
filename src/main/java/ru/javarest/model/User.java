@@ -122,10 +122,6 @@ public class User extends AbstractBaseEntity {
         return registered;
     }
 
-    public void setRegistered(Date registered) {
-        this.registered = registered;
-    }
-
     public boolean isActive() {
         return active;
     }

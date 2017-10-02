@@ -13,28 +13,52 @@ import java.util.Date;
         @NamedQuery(name = DishesOfDay.ALL_SORTED, query = "SELECT dd FROM DishesOfDay dd ORDER BY dd.datelunch")
 })
 
+@Access(AccessType.FIELD)
 @Entity
 @Table(name = "dishesofday", uniqueConstraints = {@UniqueConstraint(columnNames = {"datelunch", "dish_id"}, name = "dishesofday_unique_datelunch_dish_id_idx")})
-public class DishesOfDay extends AbstractBaseEntity {
+public class DishesOfDay implements BaseEntity {
 
     public static final String DELETE = "DishesOfDay.delete";
     public static final String BY_DATE = "DishesOfDay.getDishesOfDate";
     public static final String ALL_SORTED = "DishesOfDay.getAllSorted";
 
+    @Id
+    @SequenceGenerator(name = "dishofday_seq", sequenceName = "dishofday_seq", allocationSize = 1, initialValue = 0)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "dishofday_seq")
+    @Access(value = AccessType.PROPERTY)
+    private Integer id;
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     @Column(name = "datelunch", nullable = false)
     private Date datelunch;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+/*    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "dish_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
-    private Dish dish;
+    private Dish dish_id;*/
+
+    @Column(name = "dish_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
+    private Integer dish_id;
 
     public DishesOfDay(){}
 
-    public DishesOfDay(Date date, Dish dish){
+    public DishesOfDay(Date date, Integer dish_id){
         this.datelunch = date;
-        this.dish = dish;
+        this.dish_id = dish_id;
     }
 
     public Date getDatelunch() {
@@ -45,12 +69,12 @@ public class DishesOfDay extends AbstractBaseEntity {
         this.datelunch = datelunch;
     }
 
-    public Dish getDish() {
-        return dish;
+    public Integer getDish() {
+        return dish_id;
     }
 
-    public void setDish(Dish dish) {
-        this.dish = dish;
+    public void setDish(Integer dish_id) {
+        this.dish_id = dish_id;
     }
 
     @Override
@@ -60,12 +84,15 @@ public class DishesOfDay extends AbstractBaseEntity {
 
         DishesOfDay that = (DishesOfDay) o;
 
-        return dish.equals(that.dish);
+        if (!datelunch.equals(that.datelunch)) return false;
+        return dish_id.equals(that.dish_id);
     }
 
     @Override
     public int hashCode() {
-        return dish.hashCode();
+        int result = datelunch.hashCode();
+        result = 31 * result + dish_id.hashCode();
+        return result;
     }
 
     @Override
@@ -73,7 +100,7 @@ public class DishesOfDay extends AbstractBaseEntity {
         return "DishesOfDay{" +
                 "id=" + getId() +
                 ", datelunch=" + datelunch +
-                ", dish=" + dish.getName() +
+                ", dish_id=" + dish_id +
                 '}';
     }
 }

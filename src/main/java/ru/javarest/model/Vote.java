@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @NamedQueries({
-        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id"),
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id and v.user_id=:user_id"),
         @NamedQuery(name = Vote.BY_DATE, query = "SELECT v FROM Vote v WHERE v.datelunch=:datelunch"),
         @NamedQuery(name = Vote.VOTE_BY_DATE, query = "SELECT v FROM Vote v WHERE v.datelunch=:datelunch and v.user_id=:user_id")
 })
@@ -30,6 +30,12 @@ public class Vote extends AbstractBaseEntity {
 
     public Vote(Integer id, Date datelunch, Integer user_id, Integer restaurant_id) {
         super(id);
+        this.datelunch = datelunch;
+        this.user_id = user_id;
+        this.restaurant_id = restaurant_id;
+    }
+
+    public Vote(Date datelunch, Integer user_id, Integer restaurant_id) {
         this.datelunch = datelunch;
         this.user_id = user_id;
         this.restaurant_id = restaurant_id;
