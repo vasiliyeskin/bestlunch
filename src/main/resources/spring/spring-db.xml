@@ -69,25 +69,15 @@
 <beans profile="heroku">
         <context:property-placeholder location="classpath:/db/heroku.properties" system-properties-mode="OVERRIDE"/>
 
-        <bean class="java.net.URI" id="dbUrl">
-            <constructor-arg value="${DATABASE_URL}"/>
-        </bean>
+        <!--<bean class="java.net.URI" id="dbUrl">
+            <constructor-arg value="jdbc:hsqldb:mem:bestlunch"/>
+        </bean>-->
         <bean id="dataSource"
-              class="org.apache.tomcat.jdbc.pool.DataSource"
+              class="org.springframework.jdbc.datasource.DriverManagerDataSource"
               p:url="jdbc:hsqldb:mem:bestlunch"
               p:username="sa"
               p:password=""
-              p:driverClassName="org.hsqldb.jdbcDriver"
-              p:validationQuery="SELECT 1"
-              p:maxActive="10"
-              p:minIdle="2"
-              p:maxWait="20000"
-              p:initialSize="2"
-              p:maxIdle="5"
-              p:testOnBorrow="true"
-              p:removeAbandoned="true"
-              p:testOnConnect="true"
-              p:testWhileIdle="true"/>
+              p:driverClassName="org.hsqldb.jdbcDriver"/>
     </beans>
 
 
