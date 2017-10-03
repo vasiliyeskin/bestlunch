@@ -17,7 +17,7 @@ import java.util.List;
 public class JpaVoteRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     public Vote get(int id) {
         return em.find(Vote.class, id);

@@ -34,18 +34,6 @@ public class Dish implements BaseEntity {
     @Access(value = AccessType.PROPERTY)
     private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
-        return this.id == null;
-    }
-
     @NotBlank
     @Column(name = "name", nullable = false)
     private String name;
@@ -56,12 +44,6 @@ public class Dish implements BaseEntity {
     @Column(name = "registered", columnDefinition = "timestamp default now()")
     @NotNull
     private Date registered = new Date();
-
-   /* @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private Restaurant restaurant;*/
 
     @Column(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -85,6 +67,19 @@ public class Dish implements BaseEntity {
         this.price = price;
         this.registered = registered;
         this.restaurant_id = restaurant_id;
+    }
+
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
     }
 
     public String getName() {
@@ -111,19 +106,11 @@ public class Dish implements BaseEntity {
         this.registered = registered;
     }
 
- /*   public Restaurant getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }*/
-
-    public Integer getRestaurant_id() {
+    public Integer getRestaurantId() {
         return restaurant_id;
     }
 
-    public void setRestaurant_id(Integer restaurant_id) {
+    public void setRestaurantId(Integer restaurant_id) {
         this.restaurant_id = restaurant_id;
     }
 

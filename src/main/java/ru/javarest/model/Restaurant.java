@@ -34,18 +34,6 @@ public class Restaurant implements BaseEntity {
     @Access(value = AccessType.PROPERTY)
     private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
-        return this.id == null;
-    }
-
     @NotBlank
     @Column(name = "title", nullable = false)
     protected String title;
@@ -90,6 +78,18 @@ public class Restaurant implements BaseEntity {
 
     public Restaurant(Integer id, String title, String address, String email, String site) {
         this(id, title, address, email, site, new Date());
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
     }
 
     public String getTitle() {

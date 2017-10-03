@@ -117,7 +117,7 @@ public class UserRestController {
         for (DishesOfDay dd : dishesOfDayService.getByDate(new Date())) {
             idDish = dd.getDish();
             dish = dishService.get(idDish);
-            idRest = dish.getRestaurant_id();
+            idRest = dish.getRestaurantId();
             if (mapRaD.containsKey(idRest)) {
                 mapRaD.get(idRest).dishes.add(dish);
             } else {

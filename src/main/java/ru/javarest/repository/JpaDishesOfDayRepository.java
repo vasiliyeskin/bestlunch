@@ -15,7 +15,7 @@ import java.util.List;
 public class JpaDishesOfDayRepository {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     public DishesOfDay get(int id){return em.find(DishesOfDay.class, id);}
 

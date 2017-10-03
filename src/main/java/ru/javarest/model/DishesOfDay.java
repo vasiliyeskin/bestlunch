@@ -28,26 +28,8 @@ public class DishesOfDay implements BaseEntity {
     @Access(value = AccessType.PROPERTY)
     private Integer id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public boolean isNew() {
-        return this.id == null;
-    }
-
     @Column(name = "datelunch", nullable = false)
     private Date datelunch;
-
-/*    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "dish_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @NotNull
-    private Dish dish_id;*/
 
     @Column(name = "dish_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -59,6 +41,18 @@ public class DishesOfDay implements BaseEntity {
     public DishesOfDay(Date date, Integer dish_id){
         this.datelunch = date;
         this.dish_id = dish_id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public boolean isNew() {
+        return this.id == null;
     }
 
     public Date getDatelunch() {
