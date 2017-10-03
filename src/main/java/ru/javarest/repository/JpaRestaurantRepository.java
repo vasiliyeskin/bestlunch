@@ -1,4 +1,4 @@
-package ru.javarest.repository.jpa;
+package ru.javarest.repository;
 
 import org.hibernate.jpa.QueryHints;
 import org.springframework.dao.support.DataAccessUtils;

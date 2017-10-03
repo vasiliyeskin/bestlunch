@@ -8,7 +8,7 @@
 
     <version>1.0-SNAPSHOT</version>
 
-    <name>Calories Management</name>
+    <name>Voting of the best lunch</name>
     <url>http://bestjunch.herokuapp.com/</url>
 
     <properties>

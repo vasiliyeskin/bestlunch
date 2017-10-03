@@ -3,7 +3,7 @@ package ru.javarest.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javarest.model.Vote;
-import ru.javarest.repository.jpa.JpaVoteRepository;
+import ru.javarest.repository.JpaVoteRepository;
 import ru.javarest.util.exception.NotFoundException;
 
 import java.util.Calendar;

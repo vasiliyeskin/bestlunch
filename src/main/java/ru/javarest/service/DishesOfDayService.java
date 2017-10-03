@@ -5,7 +5,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javarest.model.DishesOfDay;
-import ru.javarest.repository.jpa.JpaDishesOfDayRepository;
+import ru.javarest.repository.JpaDishesOfDayRepository;
 import ru.javarest.util.exception.NotFoundException;
 
 import java.util.Date;

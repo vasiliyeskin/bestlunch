@@ -1,4 +1,4 @@
-package ru.javarest.repository.jpa;
+package ru.javarest.repository;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

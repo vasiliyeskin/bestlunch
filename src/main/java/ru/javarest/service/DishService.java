@@ -3,7 +3,7 @@ package ru.javarest.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javarest.model.Dish;
-import ru.javarest.repository.jpa.JpaDishRepository;
+import ru.javarest.repository.JpaDishRepository;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

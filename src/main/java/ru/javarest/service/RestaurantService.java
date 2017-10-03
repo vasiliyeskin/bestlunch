@@ -6,7 +6,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.javarest.model.Restaurant;
-import ru.javarest.repository.jpa.JpaRestaurantRepository;
+import ru.javarest.repository.JpaRestaurantRepository;
 import ru.javarest.util.exception.NotFoundException;
 
 import java.util.List;
