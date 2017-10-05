@@ -57,6 +57,8 @@ Used tools, libraries and frameworks:
 ## Curl commands to test API
 > For windows use `Git Bash`
 
+> For deployed version change "http://localhost:8080/bestlunch" to "http://bestlunch.herokuapp.com" in the curl tests
+
 Admin
 -----------
 ### Restaurants
